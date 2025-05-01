@@ -8,7 +8,7 @@ import test.server.utilities.mapper.TransactionMapper;
 
 @AllArgsConstructor
 @Component
-public class TransactionManager implements TransactionService {
+public class BankTransactionManager implements TransactionService {
 
     private final TransactionMapper transactionMapper;
     private final TransactionRepository transactionRepository;
