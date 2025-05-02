@@ -15,8 +15,6 @@ public class CreateUserRequest {
 
     private String email;
 
-    private Role role;
-
     private boolean isBlocked;
 
     private Account account;

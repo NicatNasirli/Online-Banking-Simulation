@@ -3,6 +3,7 @@ package test.server.utilities.mapper;
 import org.springframework.stereotype.Component;
 import test.server.dataTransferObjects.CreateUserRequest;
 import test.server.entities.User;
+import test.server.entities.enums.Role;
 
 @Component
 public class UserMapper {
@@ -17,7 +18,7 @@ public class UserMapper {
         returnedUser.setEmail(createUserRequest.getEmail());
         returnedUser.setName(createUserRequest.getName());
         returnedUser.setSurname(createUserRequest.getSurname());
-        returnedUser.setRole(createUserRequest.getRole());
+        returnedUser.setRole(Role.USER);
 
         return returnedUser;
     }

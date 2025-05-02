@@ -6,6 +6,7 @@ import test.server.business.abstracts.AccountService;
 import test.server.dataAccess.AccountRepository;
 import test.server.dataTransferObjects.CreateAccountRequest;
 import test.server.entities.Account;
+import test.server.utilities.CardNumberGenerator;
 import test.server.utilities.mapper.AccountMapper;
 
 @Component
@@ -16,9 +17,20 @@ public class AccountManager implements AccountService{
 
 
     @Override
-    public void createAccount(CreateAccountRequest createAccountRequest) {
+    public void addAccount(CreateAccountRequest createAccountRequest) {
         Account account = this.accountMapper.createAccountRequest(createAccountRequest);
 
         this.accountRepository.save(account);
+    }
+
+    @Override
+    public void addAccount(Account account) {
+
+        this.accountRepository.save(account);
+    }
+
+    @Override
+    public String generateCardNumber() {
+        return CardNumberGenerator.generateCardNumber();
     }
 }
