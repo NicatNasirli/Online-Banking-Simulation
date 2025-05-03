@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import test.server.business.abstracts.UserService;
 import test.server.dataAccess.UserRepository;
-import test.server.dataTransferObjects.CreateUserRequest;
+import test.server.dataTransferObjects.requests.CreateUserRequest;
 import test.server.entities.Account;
 import test.server.entities.User;
 import test.server.utilities.mapper.UserMapper;

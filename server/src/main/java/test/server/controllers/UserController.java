@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import test.server.business.concrates.UserManager;
-import test.server.dataTransferObjects.CreateUserRequest;
+import test.server.dataTransferObjects.requests.CreateUserRequest;
 
 @RestController
 @RequestMapping(value = "/user")

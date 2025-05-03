@@ -1,4 +1,4 @@
-package test.server.dataTransferObjects;
+package test.server.dataTransferObjects.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +16,8 @@ public class CreateTransactionRequest {
 
     private String description;
 
-    private Account receiverAccount;
+    private String receiverAccountNumber;
 
-    private Account senderAccount;
+    private String senderAccountNumber;
 }
 

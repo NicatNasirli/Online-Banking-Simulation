@@ -1,7 +1,7 @@
 package test.server.utilities.mapper;
 
 import org.springframework.stereotype.Component;
-import test.server.dataTransferObjects.CreateAccountRequest;
+import test.server.dataTransferObjects.requests.CreateAccountRequest;
 import test.server.entities.Account;
 
 @Component

@@ -1,9 +1,8 @@
-package test.server.dataTransferObjects;
+package test.server.dataTransferObjects.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import test.server.entities.Account;
-import test.server.entities.enums.Role;
 
 @Data
 @AllArgsConstructor

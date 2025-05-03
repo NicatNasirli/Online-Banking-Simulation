@@ -1,7 +1,7 @@
 package test.server.utilities.mapper;
 
 import org.springframework.stereotype.Component;
-import test.server.dataTransferObjects.CreateUserRequest;
+import test.server.dataTransferObjects.requests.CreateUserRequest;
 import test.server.entities.User;
 import test.server.entities.enums.Role;
 
