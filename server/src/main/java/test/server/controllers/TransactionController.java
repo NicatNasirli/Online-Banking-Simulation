@@ -17,6 +17,6 @@ public class TransactionController {
 
     @PostMapping
     public void addTransaction(@RequestBody CreateTransactionRequest createTransactionRequest){
-        this.transactionManager.addTransaction(createTransactionRequest);
+        this.transactionManager.add(createTransactionRequest);
     }
 }

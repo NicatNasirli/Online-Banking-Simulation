@@ -16,11 +16,11 @@ public class ServerApplication {
 
     @Bean
     public AccountMapper getAccountMapper(){
-        return new AccountMapper();
+        return new AccountMapper(getTransactionMapper());
     }
     @Bean
     public UserMapper getUserMapper(){
-        return new UserMapper();
+        return new UserMapper(getAccountMapper());
     }
     @Bean
     public TransactionMapper getTransactionMapper(){

@@ -1,12 +1,12 @@
 package test.server.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import test.server.business.concrates.UserManager;
 import test.server.dataTransferObjects.requests.CreateUserRequest;
+import test.server.dataTransferObjects.responses.GetUserResponse;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -17,6 +17,16 @@ public class UserController {
     @PostMapping
     public void addUser(@RequestBody CreateUserRequest createUserRequest){
 
-        this.userManager.addUser(createUserRequest);
+        this.userManager.add(createUserRequest);
+    }
+
+    @GetMapping("/{id}")
+    public GetUserResponse getUserResponseById(@PathVariable long id){
+        return this.userManager.getById(id);
+    }
+
+    @GetMapping("/getAll")
+    public List<GetUserResponse> getAllUser(){
+        return this.userManager.getAll();
     }
 }

@@ -19,14 +19,14 @@ public class AccountManager implements AccountService{
 
 
     @Override
-    public void addAccount(CreateAccountRequest createAccountRequest) {
+    public void add(CreateAccountRequest createAccountRequest) {
         Account account = this.accountMapper.createAccountRequest(createAccountRequest);
 
         this.accountRepository.save(account);
     }
 
     @Override
-    public void addAccount(Account account) {
+    public void add(Account account) {
 
         this.accountRepository.save(account);
     }
@@ -37,7 +37,7 @@ public class AccountManager implements AccountService{
     }
 
     @Override
-    public Account getAccountByNumber(String accountNumber) {
+    public Account getByCardNumber(String accountNumber) {
         //Exception handling will be implemented here.
         Optional<Account> checkAccount = this.accountRepository.findByAccountNumber(accountNumber);
 

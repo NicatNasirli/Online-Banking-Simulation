@@ -6,8 +6,8 @@ import test.server.entities.Account;
 
 @Service
 public interface AccountService {
-    void addAccount(CreateAccountRequest createAccountRequest);
-    void addAccount(Account account);
+    void add(CreateAccountRequest createAccountRequest);
+    void add(Account account);
     String generateCardNumber();
-    Account getAccountByNumber(String accountNumber);
+    Account getByCardNumber(String accountNumber);
 }

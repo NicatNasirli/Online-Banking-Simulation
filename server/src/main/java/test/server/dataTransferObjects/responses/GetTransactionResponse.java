@@ -3,7 +3,6 @@ package test.server.dataTransferObjects.responses;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import test.server.entities.Account;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +18,7 @@ public class GetTransactionResponse {
 
     private String description;
 
-    private Account receiverAccount;
+    private String receiverAccountNumber;
 
-    private Account senderAccount;
+    private String senderAccountNumber;
 }

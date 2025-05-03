@@ -5,5 +5,5 @@ import test.server.dataTransferObjects.requests.CreateTransactionRequest;
 
 @Service
 public interface TransactionService {
-    void addTransaction(CreateTransactionRequest createTransactionRequest);
+    void add(CreateTransactionRequest createTransactionRequest);
 }

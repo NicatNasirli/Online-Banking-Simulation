@@ -14,6 +14,8 @@ public class CreateUserRequest {
 
     private String email;
 
+    private String password;
+
     private boolean isBlocked;
 
     private Account account;

@@ -18,11 +18,11 @@ public class BankTransactionManager implements TransactionService {
     private final AccountManager accountManager;
 
     @Override
-    public void addTransaction(CreateTransactionRequest createTransactionRequest) {
+    public void add(CreateTransactionRequest createTransactionRequest) {
         double amount = createTransactionRequest.getAmount();
-        Account sender = this.accountManager.getAccountByNumber(createTransactionRequest.getSenderAccountNumber());
+        Account sender = this.accountManager.getByCardNumber(createTransactionRequest.getSenderAccountNumber());
         sender.setBalance(sender.getBalance() - amount);
-        Account receiver = this.accountManager.getAccountByNumber(createTransactionRequest.getReceiverAccountNumber());
+        Account receiver = this.accountManager.getByCardNumber(createTransactionRequest.getReceiverAccountNumber());
         receiver.setBalance(receiver.getBalance() + amount);
         Transaction transaction = this.transactionMapper.
                 createTransactionRequest(createTransactionRequest, receiver, sender);
