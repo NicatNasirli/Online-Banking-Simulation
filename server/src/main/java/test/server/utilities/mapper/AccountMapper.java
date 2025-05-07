@@ -9,7 +9,7 @@ import test.server.entities.Account;
 
 @AllArgsConstructor
 @Component
-public class AccountMapper {
+public class AccountMapper extends Mapper{
 
     private final TransactionMapper transactionMapper;
 

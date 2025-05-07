@@ -9,6 +9,7 @@ import test.server.dataTransferObjects.requests.CreateUserRequest;
 import test.server.dataTransferObjects.responses.GetUserResponse;
 import test.server.entities.Account;
 import test.server.entities.User;
+import test.server.utilities.PasswordUtil;
 import test.server.utilities.mapper.UserMapper;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class UserManager implements UserService {
     @Override
     public void add(CreateUserRequest createUserRequest) {
         User user = this.userMapper.createUserRequest(createUserRequest);
+        user.setPassword(PasswordUtil.hashPassword(user.getPassword()));//hashed password
         Account account = new Account();
 
         //account details

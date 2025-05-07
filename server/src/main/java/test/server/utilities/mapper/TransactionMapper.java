@@ -10,7 +10,7 @@ import test.server.entities.Transaction;
 import java.time.LocalDateTime;
 
 @Component
-public class TransactionMapper {
+public class TransactionMapper extends Mapper {
 
     //DTO to Entity object
 

@@ -3,9 +3,7 @@ package test.server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import test.server.utilities.mapper.AccountMapper;
-import test.server.utilities.mapper.TransactionMapper;
-import test.server.utilities.mapper.UserMapper;
+import test.server.utilities.mapper.Mapper;
 
 @SpringBootApplication
 public class ServerApplication {
@@ -15,15 +13,7 @@ public class ServerApplication {
     }
 
     @Bean
-    public AccountMapper getAccountMapper(){
-        return new AccountMapper(getTransactionMapper());
-    }
-    @Bean
-    public UserMapper getUserMapper(){
-        return new UserMapper(getAccountMapper());
-    }
-    @Bean
-    public TransactionMapper getTransactionMapper(){
-        return new TransactionMapper();
+    public Mapper getMapper(){
+        return new Mapper();
     }
 }

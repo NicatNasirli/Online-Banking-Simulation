@@ -9,7 +9,7 @@ import test.server.entities.enums.Role;
 
 @AllArgsConstructor
 @Component
-public class UserMapper {
+public class UserMapper extends Mapper {
 
     private final AccountMapper accountMapper;
 
