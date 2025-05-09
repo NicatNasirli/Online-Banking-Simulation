@@ -10,6 +10,9 @@ import test.server.dataTransferObjects.responses.GetUserResponse;
 import test.server.entities.Account;
 import test.server.entities.User;
 import test.server.utilities.PasswordUtil;
+import test.server.utilities.exception.DataNotFoundException;
+import test.server.utilities.exception.DuplicateResourceException;
+import test.server.utilities.exception.InvalidCredentialsException;
 import test.server.utilities.mapper.UserMapper;
 
 import java.util.ArrayList;
@@ -27,6 +30,9 @@ public class UserManager implements UserService {
     @Transactional
     @Override
     public void add(CreateUserRequest createUserRequest) {
+        if (this.userRepository.existsByEmail(createUserRequest.getEmail()))
+            throw new DuplicateResourceException("Email already exists!");
+
         User user = this.userMapper.createUserRequest(createUserRequest);
         user.setPassword(PasswordUtil.hashPassword(user.getPassword()));//hashed password
         Account account = new Account();
@@ -45,10 +51,11 @@ public class UserManager implements UserService {
     @Override
     public GetUserResponse getById(long id) {
         Optional<User> user = this.userRepository.findById(id);
-        //exception handling will be implemented
-        GetUserResponse response = this.userMapper.userToDTO(user.get());
-
-        return response;
+        if (user.isEmpty()) {
+            throw new DataNotFoundException("User does not exists!");
+        }else {
+            return this.userMapper.userToDTO(user.get());
+        }
     }
 
     @Override
@@ -65,17 +72,14 @@ public class UserManager implements UserService {
         if (user.isPresent()){
             String hashedPassword = user.get().getPassword();
             boolean checkPassword = (PasswordUtil.checkPassword(password,hashedPassword));
-            if(checkPassword) {
-                System.out.println("Authenticated!");
+
+            if(!checkPassword)
+                throw new InvalidCredentialsException("Wrong email or password!");
+            else
                 return checkPassword;
-            }
-            else {
-                System.out.println("Wrong email or password"); //Exception
-                return false;
-            }
-        }else {
-            System.out.println("No email found");
-            return false;
-        }
+
+        }else
+            throw new DataNotFoundException("Email does not exists!");
+
     }
 }

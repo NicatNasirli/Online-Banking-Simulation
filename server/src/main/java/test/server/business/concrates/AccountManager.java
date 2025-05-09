@@ -7,6 +7,7 @@ import test.server.dataAccess.AccountRepository;
 import test.server.dataTransferObjects.requests.CreateAccountRequest;
 import test.server.entities.Account;
 import test.server.utilities.CardNumberGenerator;
+import test.server.utilities.exception.DataNotFoundException;
 import test.server.utilities.mapper.AccountMapper;
 
 import java.util.Optional;
@@ -38,9 +39,10 @@ public class AccountManager implements AccountService{
 
     @Override
     public Account getByCardNumber(String accountNumber) {
-        //Exception handling will be implemented here.
-        Optional<Account> checkAccount = this.accountRepository.findByAccountNumber(accountNumber);
-
-        return checkAccount.get();
+        Optional<Account> account = this.accountRepository.findByAccountNumber(accountNumber);
+        if (account.isPresent())
+            return account.get();
+        else
+            throw new DataNotFoundException("Account does not exists!");
     }
 }

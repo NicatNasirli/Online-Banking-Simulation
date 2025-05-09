@@ -35,6 +35,7 @@ public class UserMapper extends Mapper {
     public GetUserResponse userToDTO(User user){
         GetUserResponse userResponse = new GetUserResponse();
 
+        userResponse.setId(user.getId());
         userResponse.setName(user.getName());
         userResponse.setSurname(user.getSurname());
         userResponse.setBlocked(user.isBlocked());

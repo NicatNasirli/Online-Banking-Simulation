@@ -37,8 +37,18 @@ public class AccountMapper extends Mapper{
         response.setBalance(account.getBalance());
         response.setId(account.getId());
 
-        response.setReceivedTransactions(account.getReceivedTransactions().stream().map(this.transactionMapper::transactionToDTO).toList());
-        response.setSentTransactions(account.getSentTransactions().stream().map(this.transactionMapper::transactionToDTO).toList());
+        response.setReceivedTransactions(account
+                .getReceivedTransactions()
+                .stream()
+                .map(this.transactionMapper::transactionToDTO)
+                .toList());
+
+        response.setSentTransactions(account
+                .getSentTransactions()
+                .stream()
+                .map(this.transactionMapper::transactionToDTO)
+                .toList());
+
         return response;
     }
 }

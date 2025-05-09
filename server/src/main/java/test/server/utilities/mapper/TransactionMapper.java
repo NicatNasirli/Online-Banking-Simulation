@@ -37,8 +37,14 @@ public class TransactionMapper extends Mapper {
         response.setDate(transaction.getDate());
         response.setAmount(transaction.getAmount());
         response.setDescription(transaction.getDescription());
-        response.setReceiverAccountNumber(transaction.getReceiverAccount().getAccountNumber());
-        response.setSenderAccountNumber(transaction.getSenderAccount().getAccountNumber());
+
+        response.setReceiverAccountNumber(transaction
+                .getReceiverAccount()
+                .getAccountNumber());
+
+        response.setSenderAccountNumber(transaction
+                .getSenderAccount()
+                .getAccountNumber());
 
         return response;
     }
