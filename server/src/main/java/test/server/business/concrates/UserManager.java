@@ -58,4 +58,24 @@ public class UserManager implements UserService {
                 .map(this.userMapper::userToDTO)
                 .toList();
     }
+
+    @Override
+    public boolean checkPassword(String password, String email) {
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (user.isPresent()){
+            String hashedPassword = user.get().getPassword();
+            boolean checkPassword = (PasswordUtil.checkPassword(password,hashedPassword));
+            if(checkPassword) {
+                System.out.println("Authenticated!");
+                return checkPassword;
+            }
+            else {
+                System.out.println("Wrong email or password"); //Exception
+                return false;
+            }
+        }else {
+            System.out.println("No email found");
+            return false;
+        }
+    }
 }

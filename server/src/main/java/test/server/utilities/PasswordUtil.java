@@ -8,4 +8,9 @@ public class PasswordUtil {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
+    public static boolean checkPassword(String password, String hashedPassword){
+        if (BCrypt.checkpw(password, hashedPassword)){
+            return true;
+        }else return false;
+    }
 }
