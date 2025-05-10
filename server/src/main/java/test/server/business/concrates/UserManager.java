@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import test.server.business.abstracts.UserService;
 import test.server.dataAccess.UserRepository;
 import test.server.dataTransferObjects.requests.CreateUserRequest;
+import test.server.dataTransferObjects.requests.LoginRequest;
 import test.server.dataTransferObjects.responses.GetUserResponse;
 import test.server.entities.Account;
 import test.server.entities.User;
@@ -67,11 +68,11 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public boolean checkPassword(String password, String email) {
-        Optional<User> user = this.userRepository.findByEmail(email);
+    public boolean checkPassword(LoginRequest loginRequest) {
+        Optional<User> user = this.userRepository.findByEmail(loginRequest.getEmail());
         if (user.isPresent()){
             String hashedPassword = user.get().getPassword();
-            boolean checkPassword = (PasswordUtil.checkPassword(password,hashedPassword));
+            boolean checkPassword = (PasswordUtil.checkPassword(loginRequest.getPassword(),hashedPassword));
 
             if(!checkPassword)
                 throw new InvalidCredentialsException("Wrong email or password!");

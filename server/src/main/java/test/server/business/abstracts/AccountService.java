@@ -10,4 +10,5 @@ public interface AccountService {
     void add(Account account);
     String generateCardNumber();
     Account getByCardNumber(String accountNumber);
+
 }

@@ -7,6 +7,7 @@ import test.server.dataAccess.TransactionRepository;
 import test.server.dataTransferObjects.requests.CreateTransactionRequest;
 import test.server.entities.Account;
 import test.server.entities.Transaction;
+import test.server.utilities.exception.InsufficientBalanceException;
 import test.server.utilities.mapper.TransactionMapper;
 
 @AllArgsConstructor
@@ -19,21 +20,33 @@ public class BankTransactionManager implements TransactionService {
 
     @Override
     public void add(CreateTransactionRequest createTransactionRequest) {
-        double amount = createTransactionRequest.getAmount();
-        //Sender's account number
-        Account sender = this.accountManager.
-                getByCardNumber(createTransactionRequest.getSenderAccountNumber());
-        sender.setBalance(sender.getBalance() - amount);
+        if(canSendMoney(createTransactionRequest)){
 
-        //Receiver's account number
-        Account receiver = this.accountManager.
-                getByCardNumber(createTransactionRequest.getReceiverAccountNumber());
-        receiver.setBalance(receiver.getBalance() + amount);
+            double amount = createTransactionRequest.getAmount();
+            //Sender's account number
+            Account sender = this.accountManager.
+                    getByCardNumber(createTransactionRequest.getSenderAccountNumber());
+            sender.setBalance(sender.getBalance() - amount);
 
-        Transaction transaction = this.transactionMapper.
-                createTransactionRequest(createTransactionRequest, receiver, sender);
+            //Receiver's account number
+            Account receiver = this.accountManager.
+                    getByCardNumber(createTransactionRequest.getReceiverAccountNumber());
+            receiver.setBalance(receiver.getBalance() + amount);
 
-        this.transactionRepository.save(transaction);
+            Transaction transaction = this.transactionMapper.
+                    createTransactionRequest(createTransactionRequest, receiver, sender);
+
+            this.transactionRepository.save(transaction);
+        }
     }
 
+    @Override
+    public boolean canSendMoney(CreateTransactionRequest createTransactionRequest) {
+        Account account = this.accountManager
+                .getByCardNumber(createTransactionRequest.getSenderAccountNumber());
+        if (account.getBalance() - createTransactionRequest.getAmount() < 0)
+            throw new InsufficientBalanceException("There is no enough balance!");
+
+        return true;
+    }
 }

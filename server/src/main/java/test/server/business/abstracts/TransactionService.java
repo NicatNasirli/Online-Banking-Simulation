@@ -6,4 +6,5 @@ import test.server.dataTransferObjects.requests.CreateTransactionRequest;
 @Service
 public interface TransactionService {
     void add(CreateTransactionRequest createTransactionRequest);
+    boolean canSendMoney(CreateTransactionRequest createTransactionRequest);
 }
