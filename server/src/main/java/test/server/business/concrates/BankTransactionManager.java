@@ -7,6 +7,7 @@ import test.server.dataAccess.TransactionRepository;
 import test.server.dataTransferObjects.requests.CreateTransactionRequest;
 import test.server.entities.Account;
 import test.server.entities.Transaction;
+import test.server.utilities.email.EmailSender;
 import test.server.utilities.exception.InsufficientBalanceException;
 import test.server.utilities.mapper.TransactionMapper;
 
@@ -35,6 +36,15 @@ public class BankTransactionManager implements TransactionService {
 
             Transaction transaction = this.transactionMapper.
                     createTransactionRequest(createTransactionRequest, receiver, sender);
+
+            //Send email
+            EmailSender.sendEmail(receiver.getUser().getEmail(),
+                    "Money Receive Transaction",
+                    transaction.getDescription());
+
+            EmailSender.sendEmail(sender.getUser().getEmail(),
+                    "Money Send Transaction",
+                    transaction.getDescription());
 
             this.transactionRepository.save(transaction);
         }
