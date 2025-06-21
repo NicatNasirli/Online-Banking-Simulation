@@ -1,28 +1,33 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  postgres:
-    image: postgres:15
+  backend:
+    build: .
     restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - banksystemsimulation-net
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/BankSystemSimulation
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      - postgres
+    volumes:
+      - ~/.m2:/root/.m2
+
+  postgres:
+    image: "postgres"
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - banksystemsimulation-net
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: BankSystemSimulation
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
-  app:
-    build: .
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/BankSystemSimulation
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 1234
-    depends_on:
-      - postgres
-
-volumes:
-  pgdata:
+networks:
+  banksystemsimulation-net:
