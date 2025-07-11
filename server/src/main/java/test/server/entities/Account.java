@@ -22,7 +22,8 @@ public class Account {
 
     private Double balance;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "receiverAccount",cascade = CascadeType.ALL)

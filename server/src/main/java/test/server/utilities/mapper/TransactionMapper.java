@@ -16,15 +16,18 @@ public class TransactionMapper extends Mapper {
 
     //create new Transaction
     public Transaction createTransactionRequest(CreateTransactionRequest createTransactionRequest,
-                                                Account receiverAccount, Account senderAccount){
-        Transaction returnedTransaction = new Transaction();
-        returnedTransaction.setAmount(createTransactionRequest.getAmount());
-        returnedTransaction.setDate(LocalDateTime.now());
-        returnedTransaction.setDescription(createTransactionRequest.getDescription());
-        returnedTransaction.setReceiverAccount(receiverAccount);
-        returnedTransaction.setSenderAccount(senderAccount);
+                                                Account receiverAccount,
+                                                Account senderAccount){
 
-        return returnedTransaction;
+        Transaction transaction = new Transaction();
+
+        transaction.setAmount(createTransactionRequest.getAmount());
+        transaction.setDate(LocalDateTime.now());
+        transaction.setDescription(createTransactionRequest.getDescription());
+        transaction.setReceiverAccount(receiverAccount);
+        transaction.setSenderAccount(senderAccount);
+
+        return transaction;
     }
 
     //Entity object to DTO

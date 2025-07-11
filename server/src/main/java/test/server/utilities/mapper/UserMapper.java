@@ -18,7 +18,7 @@ public class UserMapper extends Mapper {
     //create new User
     public User createUserRequest(CreateUserRequest createUserRequest){
         User returnedUser = new User();
-        returnedUser.setAccount(createUserRequest.getAccount());
+        returnedUser.setAccounts(null);
         returnedUser.setBlocked(createUserRequest.isBlocked());
         returnedUser.setEmail(createUserRequest.getEmail());
         returnedUser.setPassword(createUserRequest.getPassword());
@@ -42,7 +42,11 @@ public class UserMapper extends Mapper {
         userResponse.setEmail(user.getEmail());
         userResponse.setPassword(user.getPassword());
         userResponse.setRole(user.getRole());
-        userResponse.setAccount(this.accountMapper.accountToDTO(user.getAccount()));
+        userResponse.setAccounts(user
+                .getAccounts()
+                .stream()
+                .map(this.accountMapper::accountToDTO)
+                .toList());
 
         return userResponse;
     }

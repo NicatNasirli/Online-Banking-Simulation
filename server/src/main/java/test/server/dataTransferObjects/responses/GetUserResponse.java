@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import test.server.entities.enums.Role;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +25,5 @@ public class GetUserResponse {
 
     private boolean isBlocked;
 
-    private GetAccountResponse account;
+    private List<GetAccountResponse> accounts;
 }

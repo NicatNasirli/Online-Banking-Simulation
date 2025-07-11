@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import test.server.business.abstracts.AccountService;
 import test.server.dataAccess.AccountRepository;
-import test.server.dataTransferObjects.requests.CreateAccountRequest;
+import test.server.dataTransferObjects.requests.CreateNewAccountRequest;
 import test.server.entities.Account;
 import test.server.utilities.CardNumberGenerator;
 import test.server.utilities.exception.DataNotFoundException;
@@ -17,12 +17,14 @@ import java.util.Optional;
 public class AccountManager implements AccountService{
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
+    private final UserManager userManager;
 
 
     @Override
-    public void add(CreateAccountRequest createAccountRequest) {
-        Account account = this.accountMapper.createAccountRequest(createAccountRequest);
-
+    public void add(Long userId, CreateNewAccountRequest createNewAccountRequest) {
+        Account account = new Account();
+        account.setAccountNumber(this.generateCardNumber());
+        account.setUser(this.userManager.getUserById(userId));
         this.accountRepository.save(account);
     }
 
@@ -44,5 +46,13 @@ public class AccountManager implements AccountService{
             return account.get();
         else
             throw new DataNotFoundException("Account does not exists!");
+    }
+
+    @Override
+    public Account getAccountById(Long id) {
+        Optional<Account> account = this.accountRepository.findById(id);
+        if (account.isPresent()){
+            return account.get();
+        }else throw new DataNotFoundException("Account does not exist");
     }
 }

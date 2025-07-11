@@ -1,0 +1,8 @@
+POST localhost:8080/account
+Content-Type: application/json
+
+{
+    "name": "Nijat",
+    "surname": "Nasirli",
+    "email": "nijat.nasirli@gmail.com"
+}

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import test.server.business.abstracts.UserService;
 import test.server.dataAccess.UserRepository;
+import test.server.dataTransferObjects.requests.CreateAccountRequest;
 import test.server.dataTransferObjects.requests.CreateUserRequest;
 import test.server.dataTransferObjects.requests.LoginRequest;
 import test.server.dataTransferObjects.responses.GetUserResponse;
@@ -83,4 +84,23 @@ public class UserManager implements UserService {
             throw new DataNotFoundException("Email does not exists!");
 
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (user.isPresent()){
+            return user.get();
+        }
+        throw new DataNotFoundException("Email does not exist");
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        Optional<User> user = this.userRepository.findById(id);
+        if (user.isPresent()){
+            return user.get();
+        }else throw new DataNotFoundException("User does not exit");
+    }
+
+
 }

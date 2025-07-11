@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import test.server.entities.enums.Role;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -32,7 +34,7 @@ public class User {
 
     private boolean isBlocked;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Account account;
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Account> accounts;
 
 }

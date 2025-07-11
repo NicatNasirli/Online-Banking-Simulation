@@ -20,22 +20,23 @@ public class BankTransactionManager implements TransactionService {
     private final AccountManager accountManager;
 
     @Override
-    public void add(CreateTransactionRequest createTransactionRequest) {
-        if(canSendMoney(createTransactionRequest)){
+    public void add(Long senderAccountId,Long receiverAccountId, CreateTransactionRequest createTransactionRequest) {
+        if(canSendMoney(senderAccountId, createTransactionRequest)){
 
             double amount = createTransactionRequest.getAmount();
             //Sender's account number
             Account sender = this.accountManager.
-                    getByCardNumber(createTransactionRequest.getSenderAccountNumber());
+                    getAccountById(senderAccountId);
             sender.setBalance(sender.getBalance() - amount);
 
             //Receiver's account number
             Account receiver = this.accountManager.
-                    getByCardNumber(createTransactionRequest.getReceiverAccountNumber());
+                    getAccountById(receiverAccountId);
             receiver.setBalance(receiver.getBalance() + amount);
 
             Transaction transaction = this.transactionMapper.
                     createTransactionRequest(createTransactionRequest, receiver, sender);
+
 
             //Send email
             EmailSender.sendEmail(receiver.getUser().getEmail(),
@@ -50,10 +51,12 @@ public class BankTransactionManager implements TransactionService {
         }
     }
 
+
     @Override
-    public boolean canSendMoney(CreateTransactionRequest createTransactionRequest) {
+    public boolean canSendMoney(Long id, CreateTransactionRequest createTransactionRequest) {
         Account account = this.accountManager
-                .getByCardNumber(createTransactionRequest.getSenderAccountNumber());
+                .getAccountById(id);
+
         if (account.getBalance() - createTransactionRequest.getAmount() < 0)
             throw new InsufficientBalanceException("There is no enough balance!");
 

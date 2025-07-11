@@ -2,6 +2,7 @@ package test.server.utilities.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import test.server.business.concrates.UserManager;
 import test.server.dataTransferObjects.requests.CreateAccountRequest;
 import test.server.dataTransferObjects.responses.GetAccountResponse;
 import test.server.entities.Account;
@@ -12,6 +13,8 @@ import test.server.entities.Account;
 public class AccountMapper extends Mapper{
 
     private final TransactionMapper transactionMapper;
+    private final UserManager userManager;
+
 
     //DTO to Entity object
 

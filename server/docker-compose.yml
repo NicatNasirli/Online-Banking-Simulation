@@ -28,6 +28,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: BankSystemSimulation
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
 networks:
   banksystemsimulation-net:
+
+volumes:
+  pgdata:
+ 

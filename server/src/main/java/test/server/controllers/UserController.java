@@ -9,7 +9,7 @@ import test.server.dataTransferObjects.responses.GetUserResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping( "/users")
 @AllArgsConstructor
 public class UserController {
     private final UserManager userManager;
@@ -29,4 +29,6 @@ public class UserController {
     public List<GetUserResponse> getAllUser(){
         return this.userManager.getAll();
     }
+
+
 }
