@@ -17,5 +17,9 @@ public class AccountController {
         this.accountManager.add(userId, createNewAccountRequest);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteAccount(@PathVariable Long id){
+        this.accountManager.deleteAccount(id);
+    }
 }
 

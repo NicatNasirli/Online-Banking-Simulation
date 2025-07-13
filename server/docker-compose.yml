@@ -6,14 +6,15 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    depends_on:
+      - postgres
     networks:
       - banksystemsimulation-net
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/BankSystemSimulation
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
-    depends_on:
-      - postgres
+
     volumes:
       - ~/.m2:/root/.m2
 

@@ -13,7 +13,6 @@ import test.server.entities.Account;
 public class AccountMapper extends Mapper{
 
     private final TransactionMapper transactionMapper;
-    private final UserManager userManager;
 
 
     //DTO to Entity object

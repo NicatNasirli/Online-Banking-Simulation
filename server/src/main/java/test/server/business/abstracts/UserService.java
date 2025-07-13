@@ -16,4 +16,5 @@ public interface UserService {
     boolean checkPassword(LoginRequest loginRequest);
     User getUserByEmail(String email);
     User getUserById(Long id);
+    void deleteUser(Long id);
 }

@@ -30,5 +30,9 @@ public class UserController {
         return this.userManager.getAll();
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id){
+        this.userManager.deleteUser(id);
+    }
 
 }

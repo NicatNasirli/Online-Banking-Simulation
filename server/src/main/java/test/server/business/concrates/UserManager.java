@@ -27,7 +27,6 @@ public class UserManager implements UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
-    private final AccountManager accountManager;
 
     @Transactional
     @Override
@@ -37,16 +36,7 @@ public class UserManager implements UserService {
 
         User user = this.userMapper.createUserRequest(createUserRequest);
         user.setPassword(PasswordUtil.hashPassword(user.getPassword()));//hashed password
-        Account account = new Account();
 
-        //account details
-        account.setAccountNumber(this.accountManager.generateCardNumber());
-        account.setBalance(0.0);
-        account.setReceivedTransactions(new ArrayList<>());
-        account.setSentTransactions(new ArrayList<>());
-        account.setUser(user);
-
-        this.accountManager.add(account);
         this.userRepository.save(user);
     }
 
@@ -100,6 +90,11 @@ public class UserManager implements UserService {
         if (user.isPresent()){
             return user.get();
         }else throw new DataNotFoundException("User does not exit");
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        this.userRepository.deleteById(id);
     }
 
 

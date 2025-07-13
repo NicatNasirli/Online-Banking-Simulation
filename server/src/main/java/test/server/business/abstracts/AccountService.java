@@ -11,5 +11,6 @@ public interface AccountService {
     String generateCardNumber();
     Account getByCardNumber(String accountNumber);
     Account getAccountById(Long id);
+    void deleteAccount(Long id);
 
 }

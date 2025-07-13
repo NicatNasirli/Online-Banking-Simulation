@@ -10,6 +10,7 @@ import test.server.utilities.CardNumberGenerator;
 import test.server.utilities.exception.DataNotFoundException;
 import test.server.utilities.mapper.AccountMapper;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
@@ -23,8 +24,13 @@ public class AccountManager implements AccountService{
     @Override
     public void add(Long userId, CreateNewAccountRequest createNewAccountRequest) {
         Account account = new Account();
+        //account details
         account.setAccountNumber(this.generateCardNumber());
+        account.setReceivedTransactions(new ArrayList<>());
+        account.setSentTransactions(new ArrayList<>());
+        account.setBalance(createNewAccountRequest.getBalance());
         account.setUser(this.userManager.getUserById(userId));
+
         this.accountRepository.save(account);
     }
 
@@ -54,5 +60,10 @@ public class AccountManager implements AccountService{
         if (account.isPresent()){
             return account.get();
         }else throw new DataNotFoundException("Account does not exist");
+    }
+
+    @Override
+    public void deleteAccount(Long id) {
+        this.accountRepository.deleteById(id);
     }
 }
